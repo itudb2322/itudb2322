@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Data Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+        <h1>Sports Tournament Data Hub</h1>
+        <div>
+            <input type="search" placeholder="Search for teams or players">
+            <button type="submit">Search</button>
+        </div>
+    </header>
+    <main>
+       <!-- Inside your main tag in index.html -->
+<section id="tournaments">
+    <h2>Recent Tournaments</h2>
+    <ul>
+        {% for tournament in tournaments %}
+        <li><a href="{{ url_for('tournament_detail', tournament_id=tournament['tournament_id']) }}">{{ tournament['tournament_name'] }}</a></li>
+        {% endfor %}
+    </ul>
+</section>
+ <!-- Content goes here -->
+    </main>
+    <footer>
+        <p>&copy; 2023 Sports Data Hub</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
