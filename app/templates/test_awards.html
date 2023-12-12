@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awards - FIFA World Cup</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-3">
+        <h1 class="text-center mb-4">World Cup Awards</h1>
+
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/">Home</a>
+                <a class="nav-item nav-link active" href="/awards">Awards</a>
+                <!-- Add other links here -->
+            </div>
+        </nav>
+
+        <!-- Awards List -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="accordion" id="awardsAccordion">
+                    {% for award in awards %}
+                        <div class="card">
+                            <div class="card-header" id="heading{{ award.award_id }}">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{ award.award_id }}" aria-expanded="true" aria-controls="collapse{{ award.award_id }}">
+                                        {{ award.award_name }} - {{ award.year }}
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapse{{ award.id }}" class="collapse" aria-labelledby="heading{{ award.id }}" data-parent="#awardsAccordion">
+                                <div class="card-body">
+                                    <p><strong>Winner:</strong> {{ award.winner }} ({{ award.winner_country }})</p>
+                                    <p>{{ award.description }}</p>
+                                    <a href="{{ url_for('award_detail', award_id=award.id) }}" class="btn btn-primary">Learn more</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>

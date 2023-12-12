@@ -47,3 +47,24 @@ footer {
     text-align: center;
     padding: 10px 0;
 }
+
+.featured-awards {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.awards-button {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 10px 20px; /* Padding */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    font-size: 1.2em; /* Larger text */
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.awards-button:hover {
+    background-color: #3e8e41; /* Darker shade on hover */
+    text-decoration: none; /* No underline on hover */
+}

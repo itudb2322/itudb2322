@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FIFA World Cup Awards</title>
+    <!-- Add your CSS links here (Bootstrap, custom styles, etc.) -->
+</head>
+<body>
+    <h1>FIFA World Cup Awards</h1>
+
+    <!-- Displaying Awards -->
+    <div id="awards">
+        {% for award in awards %}
+            <div class="award">
+                <h2>{{ award.award_name }} (Introduced in {{ award.year_introduced }})</h2>
+                <p>{{ award.award_description }}</p>
+
+                <!-- Displaying Winners of this Award -->
+                <div class="winners">
+                    {% for winner in winners %}
+                        {% if winner.award_id == award.award_id %}
+                            <div class="winner">
+                                <p>{{ winner.given_name }} {{ winner.family_name }} - {{ winner.team_name }}</p>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
