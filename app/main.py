@@ -1,14 +1,26 @@
 from flask import Flask, render_template
 import mysql.connector
+import getpass
 
 app = Flask(__name__)
 
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="1113",
-    database="fıfa"
-)
+
+while(True):
+    try:
+        sqlHost = input("Enter the MySQL host address: ")
+        sqlDB = input("Enter database name: ")
+        sqlUser = input("Username: ")
+        sqlPass = getpass.getpass()
+
+        db = mysql.connector.connect(
+        host = sqlHost,
+        user = sqlUser,
+        password = sqlPass,
+        database = sqlDB,
+        )
+        break
+    except Exception as e:
+        print(f"\nError: {e}")
 
 @app.route('/')
 def home():
