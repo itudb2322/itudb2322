@@ -31,11 +31,22 @@ def home():
 #    db.close()
     return render_template('index.html', tournaments=results)
 
+@app.route('/tournaments')
+def all_tournaments():
+    cursor = db.cursor()
+    cursor.execute('SELECT * FROM tournaments')
+    tournaments = cursor.fetchall()
+    cursor.close()
+#    db.close()
+    if tournaments is None:
+        return 'Tournaments not found!'
+    return render_template('tournaments.html', tournaments=tournaments)
+
 @app.route('/tournament/<string:tournament_id>')
 def tournament_detail(tournament_id):
     cursor = db.cursor()
-    cursor.execute('SELECT * FROM tournaments WHERE tournament_id = %s', (tournament_id,))
-    tournament = cursor.fetchone()
+    cursor.execute('SELECT * FROM matchs WHERE tournament_id = %s', (tournament_id,))
+    tournament = cursor.fetchall()
     cursor.close()
 #    db.close()
     if tournament is None:

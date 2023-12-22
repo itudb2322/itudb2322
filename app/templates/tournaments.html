@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Tournaments</title>
+</head>
+<body>
+    <h1>All Tournaments</h1>
+    <table border="1">
+        <tr>
+            <th>Tournament</th>
+            <th>Year</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Host Country</th>
+            <th>Winner</th>
+            <th>Number of Teams</th>
+            <th>Group Stage</th>
+            <th>Second Group Stage</th>
+            <th>Final Round</th>
+            <th>Round of 16</th>
+            <th>Quarter Finals</th>
+            <th>Semi Finals</th>
+            <th>Third Place Match</th>
+            <th>Final</th>
+        </tr>
+        {% for tournament in tournaments %}
+        <tr>
+            <td><a href="{{ url_for('tournament_detail', tournament_id=tournament[1]) }}">{{ tournament[2] }}</a></td>
+            <td>{{ tournament[3] }}</td>
+            <td>{{ tournament[4] }}</td>
+            <td>{{ tournament[5] }}</td>
+            <td>{{ tournament[6] }}</td>
+            <td>{{ tournament[7] }}</td>
+            <td>{{ tournament[9] }}</td>
+            <td>{{ 'Yes' if tournament[10] else 'No' }}</td>
+            <td>{{ 'Yes' if tournament[11] else 'No' }}</td>
+            <td>{{ 'Yes' if tournament[12] else 'No' }}</td>
+            <td>{{ 'Yes' if tournament[13] else 'No' }}</td>
+            <td>{{ 'Yes' if tournament[14] else 'No' }}</td>
+            <td>{{ 'Yes' if tournament[15] else 'No' }}</td>
+            <td>{{ 'Yes' if tournament[16] else 'No' }}</td>
+            <td>{{ 'Yes' if tournament[17] else 'No' }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

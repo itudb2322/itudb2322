@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tournament Details</title>
 </head>
 <body>
-    <h1>{{ tournament[1] }}</h1> <!-- Assuming the second column is tournament_name -->
-    <!-- Add more tournament details here -->
+    <h1>{{ tournament[0][1] }}</h1> 
+
+    <table border="1">
+        <tr>
+            <th>Tournament</th>
+            <th>Match</th>
+            <th>Stage Name</th>
+            <th>Group Stage</th>
+            <th>Knockout Stage</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Stadium</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Score</th>
+            <th>Extra Time</th>
+            <th>Penalty Shootout</th>
+            <th>Score Penalties</th>
+        </tr>
+        {% for match in tournament %}
+        <tr>
+            <td>{{ match[2] }}</td>
+            <td>{{ match[4] }}</td>
+            <td>{{ match[5] }}</td>
+            <td>{{ 'Yes' if match[7] else 'No' }}</td>
+            <td>{{ 'Yes' if match[8] else 'No' }}</td>
+            <td>{{ match[11] }}</td>
+            <td>{{ match[12] }}</td>
+            <td>{{ match[14] }}</td>
+            <td>{{ match[15] }}</td> 
+            <td>{{ match[16] }}</td>
+            <td>{{ match[23] }}</td>
+            <td>{{ 'Yes' if match[28] else 'No' }}</td>
+            <td>{{ 'Yes' if match[29] else 'No' }}</td>
+            <td>{{ match[30] }}</td> 
+        </tr>
+        {% endfor %}
+    </table>
+
+
 </body>
 </html>
