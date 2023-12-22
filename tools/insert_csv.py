@@ -52,9 +52,13 @@ for row in csvReader:
         header = "(" + ",".join(row) + ")"
         firstRow = False
         continue
-    data = "(\'" + "\',\'".join(row) + "\')"
-    sql = "INSERT INTO " + sqlTable + " " + header + " VALUES " + data
-    mycursor.execute(sql)
+    # Prepare the INSERT query with placeholders
+    sql = f"INSERT INTO {sqlTable} {header} VALUES ({', '.join(['%s'] * len(row))})"
+    values = tuple(row)
+
+    # Execute the query with parameters
+    mycursor.execute(sql, values)
+
     dbConn.commit()
     print(f"Inserted {appliedCount} of {rowCount-1} rows\r",end="",flush=True)
     appliedCount += 1
