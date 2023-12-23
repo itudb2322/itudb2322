@@ -67,7 +67,6 @@ def goals(match_id):
 @app.route('/add_goal/<string:match_id>', methods=['GET', 'POST'])
 def add_goal(match_id):
     if request.method == 'POST':
-        # Retrieve goal details from the form submission
         team_name = request.form['team_name']
         first_name = request.form['first_name']
         second_name = request.form['second_name']
@@ -115,6 +114,47 @@ def add_goal(match_id):
         return goals(match_id)
 
     return render_template('add_goal.html', match_id=match_id)
+
+@app.route('/delete_goal/<string:match_id>', methods=['POST'])
+def delete_goal(match_id):
+    
+    goal_id = request.form['goal_id']
+    cursor = db.cursor()
+    cursor.execute('SELECT home_team_name,away_team_name, home_team_score, away_team_score FROM matchs WHERE match_id = %s', (match_id,))
+    result = cursor.fetchone()
+    cursor.close()
+    home_team_name, away_team_name, home_team_score, away_team_score = result
+    
+    cursor = db.cursor()
+    cursor.execute('SELECT team_name, own_goal FROM goal WHERE goal_id = %s', (goal_id,))
+    result = cursor.fetchone()
+    cursor.close()
+    team_name, own_goal = result
+    
+    if((team_name == home_team_name) and (own_goal == 1)):
+        away_team_score -= 1
+    elif((team_name == home_team_name) and (own_goal == 0)):
+        home_team_score -= 1
+    elif((team_name == away_team_name) and (own_goal == 1)):
+        home_team_score -= 1
+    else:
+        away_team_score -= 1
+    score = str(home_team_score) + "-" + str(away_team_score)
+    # Update match score on the database
+    cursor = db.cursor()
+    cursor.execute("UPDATE matchs SET score = %s, home_team_score = %s, away_team_score = %s WHERE match_id = %s ", (score, home_team_score, away_team_score, match_id))
+    db.commit()
+    cursor.close()
+    
+    cursor = db.cursor()
+    cursor.execute('DELETE FROM goal where goal_id = %s', (goal_id,))
+    db.commit()
+    
+    cursor.close()
+    
+    # Redirect back to the goals page after deletion
+    
+    return goals(match_id)
 
 @app.route('/awards')
 def awards():
