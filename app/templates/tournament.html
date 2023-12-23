@@ -37,7 +37,13 @@
             <td>{{ match[14] }}</td>
             <td>{{ match[15] }}</td> 
             <td>{{ match[16] }}</td>
-            <td>{{ match[23] }}</td>
+            <td>
+            {% if match[23] != '0-0' %}
+                <a href="{{ url_for('goals', match_id=match[3]) }}">{{ match[23] }}</a>
+            {% else %}
+                {{ match[23] }}
+           {% endif %}
+            </td>
             <td>{{ 'Yes' if match[28] else 'No' }}</td>
             <td>{{ 'Yes' if match[29] else 'No' }}</td>
             <td>{{ match[30] }}</td> 

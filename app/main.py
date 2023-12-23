@@ -53,6 +53,17 @@ def tournament_detail(tournament_id):
         return 'Tournament not found!'
     return render_template('tournament.html', tournament=tournament)
 
+@app.route('/goals/<string:match_id>')
+def goals(match_id):
+    cursor = db.cursor()
+    cursor.execute('SELECT * FROM goal WHERE match_id = %s', (match_id,))
+    goals = cursor.fetchall()
+    cursor.close()
+#    db.close()
+    if goals is None:
+        return 'Goals not found!'
+    return render_template('goals.html', goals=goals)
+
 @app.route('/awards')
 def awards():
     cursor = db.cursor(dictionary=True)

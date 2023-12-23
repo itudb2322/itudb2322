@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goals</title>
+</head>
+<body>
+    <h1>Goals</h1>
+
+    <table border="1">
+        <tr>
+            <th>Tournament</th>
+            <th>Match</th>
+            <th>Team</th>
+            <th>Name</th>
+            <th>Minute</th>
+            <th>Match Period</th>
+            <th>Own Goal</th>
+            <th>Stage</th>   
+            <th>Date</th>     
+        </tr>
+        {% for goal in goals %}
+            <tr>
+                <td>{{ goal[3] }}</td>
+                <td>{{ goal[5] }}</td>
+                <td>{{ goal[10] }}</td>
+                <td>
+                    {% if goal[16] != 'not applicable' %}
+                        {{ goal[16] ~ (' ' ~ goal[15] if goal[15] != 'not applicable' else '') }}
+                    {% elif goal[15] != 'not applicable' %}
+                        {{ goal[15] }}
+                    {% else %}
+                        Unknown
+                    {% endif %}
+                </td>
+                <td>{{ goal[21] }}</td>
+                <td>{{ goal[24] }}</td>
+                <td>{{ 'Yes' if goal[25] else 'No' }}</td>
+                <td>{{ goal[7] }}</td>
+                <td>{{ goal[6] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Add any additional HTML elements or content here -->
+
+</body>
+</html>
