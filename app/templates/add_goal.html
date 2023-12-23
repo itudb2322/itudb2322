@@ -1,0 +1,41 @@
+<!-- add_goal.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Goal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Add Goal</h1>
+    <form action="{{ url_for('add_goal', match_id=match_id) }}" method="post">
+        <label for="team_name">Team Name:</label>
+        <select id="team_name" name="team_name">
+            <option value="home">Home</option>
+            <option value="away">Away</option>
+        </select>
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" required>
+        <label for="second_name">Name:</label>
+        <input type="text" id="second_name" name="second_name" required>
+        <label for="minute">Minute:</label>
+        <input type="text" id="minute" name="minute" required>
+        <label for="match_period">Match Period:</label>
+        <select id="match_period" name="match_period">
+            <option value="first half">First Half</option>
+            <option value="second half">Second Half</option>
+            <option value="extra time, first half">Extra Time, First Half</option>
+            <option value="extra time, second half">Extra Time, Second Half</option>
+        </select>
+        <label for="own_goal">Own Goal:</label>
+        <select id="own_goal" name="own_goal">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+
+        <button type="submit">Submit Goal</button>
+    </form>
+</body>
+</html>

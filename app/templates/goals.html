@@ -37,28 +37,28 @@
         </tr>
         {% for goal in goals %}
             <tr>
-                <td>{{ goal[3] }}</td>
+                <td>{{ goal[2] }}</td>
+                <td>{{ goal[6] }}</td>
+                <td>{{ goal[4] }}</td>
                 <td>{{ goal[7] }}</td>
-                <td>{{ goal[5] }}</td>
-                <td>{{ goal[10] }}</td>
                 <td>
-                    {% if goal[16] != 'not applicable' %}
-                        {{ goal[16] ~ (' ' ~ goal[15] if goal[15] != 'not applicable' else '') }}
-                    {% elif goal[15] != 'not applicable' %}
-                        {{ goal[15] }}
+                    {% if goal[9] != 'not applicable' %}
+                        {{ goal[9] ~ (' ' ~ goal[8] if goal[8] != 'not applicable' else '') }}
+                    {% elif goal[8] != 'not applicable' %}
+                        {{ goal[8] }}
                     {% else %}
                         Unknown
                     {% endif %}
                 </td>
-                <td>{{ goal[21] }}</td>
-                <td>{{ goal[24] }}</td>
-                <td>{{ 'Yes' if goal[25] else 'No' }}</td>
-                <td>{{ goal[6] }}</td>
+                <td>{{ goal[10] }}</td>
+                <td>{{ goal[11] }}</td>
+                <td>{{ 'Yes' if goal[12] else 'No' }}</td>
+                <td>{{ goal[5] }}</td>
             </tr>
         {% endfor %}
     </table>
 
-    <!-- Add any additional HTML elements or content here -->
+    <a href="{{ url_for('add_goal', match_id=goals[0][3]) }}">Add New Goal</a>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 import mysql.connector
 import getpass
 
@@ -63,6 +63,58 @@ def goals(match_id):
     if goals is None:
         return 'Goals not found!'
     return render_template('goals.html', goals=goals)
+
+@app.route('/add_goal/<string:match_id>', methods=['GET', 'POST'])
+def add_goal(match_id):
+    if request.method == 'POST':
+        # Retrieve goal details from the form submission
+        team_name = request.form['team_name']
+        first_name = request.form['first_name']
+        second_name = request.form['second_name']
+        minute = request.form['minute']
+        match_period = request.form['match_period']
+        own_goal = request.form['own_goal']
+        minute = minute + "'"
+        
+        cursor = db.cursor()
+        cursor.execute('SELECT tournament_id,tournament_name,match_name,match_date,stage_name,home_team_name,away_team_name, home_team_score, away_team_score FROM matchs WHERE match_id = %s', (match_id,))
+        result = cursor.fetchone()
+        cursor.close()
+        if result:
+            tournament_id, tournament_name, match_name, match_date, stage_name, home_team_name, away_team_name, home_team_score, away_team_score = result
+        else:
+            print(f"No match found with match_id {match_id}")
+        
+        if((team_name == "home") and (own_goal == "1")):
+            team_name = home_team_name
+            away_team_score += 1
+        elif((team_name == "home") and (own_goal == "0")):
+            team_name = home_team_name
+            home_team_score += 1
+        elif((team_name == "away") and (own_goal == "1")):
+            team_name = away_team_name
+            home_team_score += 1
+        else:
+            team_name = away_team_name
+            away_team_score += 1
+        score = str(home_team_score) + "-" + str(away_team_score)
+        goal_id = 'U'+ team_name[0] + first_name[0] + second_name[0] + minute[:2]
+        # Save goal to the database
+        cursor = db.cursor()
+        sql = "INSERT INTO goal (goal_id,tournament_id,tournament_name,match_id,match_name,match_date,stage_name,team_name,family_name,given_name,minute_label,match_period,own_goal) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        val = (goal_id, tournament_id, tournament_name, match_id, match_name, match_date, stage_name, team_name, second_name, first_name, minute, match_period, own_goal)
+        cursor.execute(sql, val)
+        db.commit()
+        cursor.close()
+        # Update match score on the database
+        cursor = db.cursor()
+        cursor.execute("UPDATE matchs SET score = %s, home_team_score = %s, away_team_score = %s WHERE match_id = %s ", (score, home_team_score, away_team_score, match_id))
+        db.commit()
+        cursor.close()
+        # Redirect to the goals page after submission       
+        return goals(match_id)
+
+    return render_template('add_goal.html', match_id=match_id)
 
 @app.route('/awards')
 def awards():
