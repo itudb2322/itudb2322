@@ -16,22 +16,8 @@
             </ul>
         </nav>
         <h1>World Cup Data Hub</h1>
-        <div>
-            <input type="search" placeholder="Search for teams or players">
-            <button type="submit">Search</button>
-        </div>
     </header>
     <h1 style="text-align: center;">Goals</h1>
-
-    <form action="{{ url_for('delete_goal', match_id=goals[0][3]) }}" method="post">
-        <label for="goal_selection">Select Goal to Delete:</label>
-        <select id="goal_selection" name="goal_id">
-            {% for goal in goals %}
-                <option value="{{ goal[0] }}">{{ goal[9] ~ ' ' ~ goal[8]}} - {{ goal[10] }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Delete Goal</button>
-    </form>
 
     <table border="1">
         <tr>
@@ -67,8 +53,20 @@
             </tr>
         {% endfor %}
     </table>
-
-    <a href="{{ url_for('add_goal', match_id=goals[0][3]) }}">Add New Goal</a>
-
+    <div>
+    <a class = 'button' href="{{ url_for('add_goal', match_id=goals[0][3]) }}">Add New Goal</a>
+    </div>    
+    <div>
+    <form action="{{ url_for('delete_goal', match_id=goals[0][3]) }}" method="post">
+        <label for="goal_selection"></label>
+        <select required id="goal_selection" name="goal_id">
+            <option value="" disabled selected>Select a Goal to Delete</option>
+            {% for goal in goals %}
+                <option value="{{ goal[0] }}">{{ goal[9] ~ ' ' ~ goal[8]}} - {{ goal[10] }}</option>
+            {% endfor %}
+        </select>
+        <button class = 'button' type="submit">Delete a Goal</button>
+    </form>
+    </div>
 </body>
 </html>

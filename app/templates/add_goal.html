@@ -9,33 +9,69 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Add Goal</h1>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+        <h1>World Cup Data Hub</h1>
+        
+    </header>
+    <h1 style="text-align: center;">Add Goal</h1>
     <form action="{{ url_for('add_goal', match_id=match_id) }}" method="post">
-        <label for="team_name">Team Name:</label>
-        <select id="team_name" name="team_name">
+        <div>
+        <label for="team_name">Select Team Side:</label>
+        <select required id="team_name" name="team_name">
+            <option value="" disabled selected>Home or Away</option>
             <option value="home">Home</option>
             <option value="away">Away</option>
         </select>
+        </div>
+        <div>
         <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" required>
-        <label for="second_name">Name:</label>
-        <input type="text" id="second_name" name="second_name" required>
+        <input type="text" id="first_name" name="first_name" required style = "width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;">
+        </div>
+        <div>
+        <label for="second_name">Second Name:</label>
+        <input type="text" id="second_name" name="second_name" required style = "width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;">
+        </div>
+        <div>
         <label for="minute">Minute:</label>
-        <input type="text" id="minute" name="minute" required>
+        <input type="text" id="minute" name="minute" required style = "width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;">
+        </div>
+        <div>
         <label for="match_period">Match Period:</label>
-        <select id="match_period" name="match_period">
+        <select required id="match_period" name="match_period">
+            <option value="" disabled selected>Select Match Period</option>
             <option value="first half">First Half</option>
             <option value="second half">Second Half</option>
             <option value="extra time, first half">Extra Time, First Half</option>
             <option value="extra time, second half">Extra Time, Second Half</option>
         </select>
+        </div>
+        <div>
         <label for="own_goal">Own Goal:</label>
-        <select id="own_goal" name="own_goal">
+        <select required id="own_goal" name="own_goal">
+            <option value="" disabled selected>Yes or No</option>
             <option value="1">Yes</option>
             <option value="0">No</option>
         </select>
-
-        <button type="submit">Submit Goal</button>
+        </div>
+        <div>
+        <button class = 'button' type="submit">Submit Goal</button>
+        </div>
     </form>
 </body>
 </html>
