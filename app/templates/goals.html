@@ -4,25 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Goals</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Goals</h1>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+        <h1>World Cup Data Hub</h1>
+        <div>
+            <input type="search" placeholder="Search for teams or players">
+            <button type="submit">Search</button>
+        </div>
+    </header>
+    <h1 style="text-align: center;">Goals</h1>
 
     <table border="1">
         <tr>
             <th>Tournament</th>
+            <th>Stage</th>  
             <th>Match</th>
             <th>Team</th>
             <th>Name</th>
             <th>Minute</th>
             <th>Match Period</th>
-            <th>Own Goal</th>
-            <th>Stage</th>   
+            <th>Own Goal</th>   
             <th>Date</th>     
         </tr>
         {% for goal in goals %}
             <tr>
                 <td>{{ goal[3] }}</td>
+                <td>{{ goal[7] }}</td>
                 <td>{{ goal[5] }}</td>
                 <td>{{ goal[10] }}</td>
                 <td>
@@ -37,7 +53,6 @@
                 <td>{{ goal[21] }}</td>
                 <td>{{ goal[24] }}</td>
                 <td>{{ 'Yes' if goal[25] else 'No' }}</td>
-                <td>{{ goal[7] }}</td>
                 <td>{{ goal[6] }}</td>
             </tr>
         {% endfor %}

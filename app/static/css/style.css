@@ -68,3 +68,36 @@ footer {
     background-color: #3e8e41; /* Darker shade on hover */
     text-decoration: none; /* No underline on hover */
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f1c4c4;
+}
+
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+tr:nth-child(odd) {background-color: #f2f2f2;}
+
+tr:hover {background-color: rgb(236, 213, 216);}
+

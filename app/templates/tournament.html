@@ -4,13 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tournament Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>{{ tournament[0][1] }}</h1> 
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+        <h1>World Cup Data Hub</h1>
+        <div>
+            <input type="search" placeholder="Search for teams or players">
+            <button type="submit">Search</button>
+        </div>
+    </header>
+    <h1 style="text-align: center;">{{ tournament[0][2] }}</h1> 
 
     <table border="1">
         <tr>
-            <th>Tournament</th>
             <th>Match</th>
             <th>Stage Name</th>
             <th>Group Stage</th>
@@ -27,7 +41,6 @@
         </tr>
         {% for match in tournament %}
         <tr>
-            <td>{{ match[2] }}</td>
             <td>{{ match[4] }}</td>
             <td>{{ match[5] }}</td>
             <td>{{ 'Yes' if match[7] else 'No' }}</td>

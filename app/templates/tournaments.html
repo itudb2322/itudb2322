@@ -4,9 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Tournaments</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>All Tournaments</h1>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+        <h1>World Cup Data Hub</h1>
+        <div>
+            <input type="search" placeholder="Search for teams or players">
+            <button type="submit">Search</button>
+        </div>
+    </header>
+    <h1 style="text-align: center;">Tournaments</h1>
     <table border="1">
         <tr>
             <th>Tournament</th>
