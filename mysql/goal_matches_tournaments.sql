@@ -173,3 +173,17 @@ minute_label VARCHAR(7);
 ALTER TABLE goal MODIFY
 match_period VARCHAR(40);
 
+alter table goal drop COLUMN key_id;
+alter table goal drop COLUMN group_name;
+alter table goal drop COLUMN home_team;
+alter table goal drop COLUMN away_team;
+alter table goal drop COLUMN shirt_number;
+alter table goal drop COLUMN player_team_id;
+alter table goal drop COLUMN player_team_code;
+alter table goal drop COLUMN minute_regulation;
+alter table goal drop COLUMN minute_stoppage;
+alter table goal drop COLUMN penalty;
+alter table goal drop COLUMN team_id;
+alter table goal drop COLUMN player_id;
+alter table goal drop COLUMN team_code;
+alter table goal drop COLUMN player_team_name;
