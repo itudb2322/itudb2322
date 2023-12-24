@@ -51,7 +51,7 @@ def tournament_detail(tournament_id):
 #    db.close()
     if tournament is None:
         return 'Tournament not found!'
-    return render_template('tournament.html', tournament=tournament)
+    return render_template('tournament.html', tournament=tournament, tournament_id=tournament_id)
 
 @app.route('/goals/<string:match_id>')
 def goals(match_id):
@@ -155,6 +155,23 @@ def delete_goal(match_id):
     # Redirect back to the goals page after deletion
     
     return goals(match_id)
+
+@app.route('/search_team/<string:tournament_id>', methods=['POST'])
+def search_team(tournament_id):
+    team_name = request.form.get('team_name')
+    team_name = team_name.capitalize()
+
+    cursor = db.cursor()
+    if(team_name == ""):
+        cursor.execute('SELECT * FROM matchs WHERE tournament_id = %s', (tournament_id,))
+    else:
+        cursor.execute('SELECT * FROM matchs WHERE tournament_id = %s AND (home_team_name = %s OR away_team_name = %s)', (tournament_id, team_name, team_name))
+
+    tournament = cursor.fetchall()
+    cursor.close()
+
+    return render_template('tournament.html', tournament=tournament, tournament_id=tournament_id)
+
 
 @app.route('/awards')
 def awards():

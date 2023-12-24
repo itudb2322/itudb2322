@@ -17,12 +17,15 @@
         </nav>
         <h1>World Cup Data Hub</h1>
         <div>
-            <input type="search" placeholder="Search for teams" style = "padding: 8px;
+            <form action="{{ url_for('search_team', tournament_id = tournament_id) }}" method="post">
+            <input type="search" placeholder="Search for teams" id="team_name" name="team_name" style = "padding: 8px;
             margin-bottom: 16px;
             box-sizing: border-box;">
             <button type="submit" class = 'button'>Search</button>
+            </form>
         </div>
     </header>
+    {% if tournament %}
     <h1 style="text-align: center;">{{ tournament[0][2] }}</h1> 
 
     <table border="1">
@@ -65,7 +68,8 @@
         </tr>
         {% endfor %}
     </table>
-
-
+    {% else %}
+        <p style="color: red; text-align: center;">Team you entered is not in the tournament.</p>
+    {% endif %}
 </body>
 </html>
