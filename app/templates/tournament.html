@@ -24,8 +24,7 @@
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <li><a href="{{ url_for('all_tournaments') }}">Tournaments</a></li>
             </ul>
         </nav>
         <h1>World Cup Data Hub</h1>
@@ -69,11 +68,7 @@
             <td>{{ match[15] }}</td> 
             <td>{{ match[16] }}</td>
             <td>
-            {% if match[23] != '0-0' %}
                 <a href="{{ url_for('goals', match_id=match[3]) }}">{{ match[23] }}</a>
-            {% else %}
-                {{ match[23] }}
-           {% endif %}
             </td>
             <td>{{ 'Yes' if match[28] else 'No' }}</td>
             <td>{{ 'Yes' if match[29] else 'No' }}</td>

@@ -11,14 +11,13 @@
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <li><a href="{{ url_for('all_tournaments') }}">Tournaments</a></li>
             </ul>
         </nav>
         <h1>World Cup Data Hub</h1>
     </header>
     <h1 style="text-align: center;">Goals</h1>
-
+    {% if goals %}
     <table border="1">
         <tr>
             <th>Tournament</th>
@@ -54,19 +53,28 @@
         {% endfor %}
     </table>
     <div>
-    <a class = 'button' href="{{ url_for('add_goal', match_id=goals[0][3]) }}">Add New Goal</a>
-    </div>    
-    <div>
-    <form action="{{ url_for('delete_goal', match_id=goals[0][3]) }}" method="post">
-        <label for="goal_selection"></label>
-        <select required id="goal_selection" name="goal_id">
-            <option value="" disabled selected>Select a Goal to Delete</option>
-            {% for goal in goals %}
-                <option value="{{ goal[0] }}">{{ goal[9] ~ ' ' ~ goal[8]}} - {{ goal[10] }}</option>
-            {% endfor %}
-        </select>
-        <button class = 'button' type="submit">Delete a Goal</button>
-    </form>
+        <form action="{{ url_for('delete_goal', match_id=goals[0][3]) }}" method="post">
+            <label for="goal_selection"></label>
+            <select required id="goal_selection" name="goal_id">
+                <option value="" disabled selected>Select a Goal to Delete</option>
+                {% for goal in goals %}
+                    <option value="{{ goal[0] }}">{{ goal[9] ~ ' ' ~ goal[8]}} - {{ goal[10] }}</option>
+                {% endfor %}
+            </select>
+            <button class = 'button' type="submit">Delete a Goal</button>
+        </form>
     </div>
+    <div>
+        <a class = 'button' href="{{ url_for('add_goal', match_id=match_id) }}">Add New Goal</a>
+    </div>  
+    {% else %}
+        <p style="color: red; text-align: center;">There is no goal in this match.</p>
+        <h3 style = "text-align: center;">Score: 0-0</p>
+        <div>
+            <a class = 'button' href="{{ url_for('add_goal', match_id=match_id) }}">Add a Goal</a>
+        </div>  
+    {% endif %}
+      
+    
 </body>
 </html>

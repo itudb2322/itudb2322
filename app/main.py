@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import mysql.connector
 import getpass
-
+from datetime import datetime
 app = Flask(__name__)
 
 
@@ -56,13 +56,13 @@ def tournament_detail(tournament_id):
 @app.route('/goals/<string:match_id>')
 def goals(match_id):
     cursor = db.cursor()
-    cursor.execute('SELECT * FROM goal WHERE match_id = %s', (match_id,))
+    cursor.execute('SELECT * FROM goal WHERE match_id = %s ORDER BY minute_label', (match_id,))
     goals = cursor.fetchall()
     cursor.close()
 #    db.close()
     if goals is None:
         return 'Goals not found!'
-    return render_template('goals.html', goals=goals)
+    return render_template('goals.html', goals=goals, match_id=match_id)
 
 @app.route('/add_goal/<string:match_id>', methods=['GET', 'POST'])
 def add_goal(match_id):
@@ -98,6 +98,8 @@ def add_goal(match_id):
             away_team_score += 1
         score = str(home_team_score) + "-" + str(away_team_score)
         goal_id = 'U'+ team_name[0] + first_name[0] + second_name[0] + minute[:2]
+
+        match_date = match_date.strftime("%Y-%m-%d")
         # Save goal to the database
         cursor = db.cursor()
         sql = "INSERT INTO goal (goal_id,tournament_id,tournament_name,match_id,match_name,match_date,stage_name,team_name,family_name,given_name,minute_label,match_period,own_goal) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
