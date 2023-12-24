@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Goals</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            var form = document.getElementById('updateForm');
+            form.addEventListener('submit', function (event) {             
+                var firstNameInput = document.getElementById('first_name');
+                if (firstNameInput.value.length <= 1 || firstNameInput.value.length > 15) {
+                    alert('First name must be longer than 1 and shorter than 15 chars.');
+                    event.preventDefault(); 
+                    return;
+                }
+                var secondNameInput = document.getElementById('second_name');
+                if (secondNameInput.value.length > 15) {
+                    alert('Second name must be shorter than 15 chars.');
+                    event.preventDefault(); 
+                    return;
+                }     
+            });
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -53,7 +73,7 @@
         {% endfor %}
     </table>
     <div>
-        <form action="{{ url_for('delete_goal', match_id=goals[0][3]) }}" method="post">
+        <form action="{{ url_for('delete_goal', match_id=goals[0][3])}}" method="post">
             <label for="goal_selection"></label>
             <select required id="goal_selection" name="goal_id">
                 <option value="" disabled selected>Select a Goal to Delete</option>
@@ -65,7 +85,39 @@
         </form>
     </div>
     <div>
+        <form id = "updateForm" action="{{ url_for('update_goal', match_id=goals[0][3]) }}" method="post">
+        <div>
+            <label for="goal_update"></label>
+            <select required id="goal_update" name="goal_id">
+                <option value="" disabled selected>Select a Goal to Update</option>
+                {% for goal in goals %}
+                    <option value="{{ goal[0] }}">{{ goal[9] ~ ' ' ~ goal[8]}} - {{ goal[10] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" required style = "width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;">
+        </div>
+        <div>
+            <label for="second_name">Second Name:</label>
+            <input type="text" id="second_name" name="second_name" style = "width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;">
+        </div>        
+        <div>
+            <button class = 'button' type="submit">Update the Goal</button>
+        </div>
+        </form>
+    </div>
+    <div>
+        <form>
         <a class = 'button' href="{{ url_for('add_goal', match_id=match_id) }}">Add New Goal</a>
+        </form>
     </div>  
     {% else %}
         <p style="color: red; text-align: center;">There is no goal in this match.</p>

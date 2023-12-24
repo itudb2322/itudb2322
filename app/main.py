@@ -158,6 +158,24 @@ def delete_goal(match_id):
     
     return goals(match_id)
 
+@app.route('/update_goal/<string:match_id>', methods=['POST'])
+def update_goal(match_id):
+    goal_id = request.form['goal_id']
+    first_name = request.form['first_name']
+    second_name = request.form['second_name']
+    
+    # Update match score on the database
+    cursor = db.cursor()
+    if(second_name == ""):
+        cursor.execute("UPDATE goal SET given_name = %s WHERE goal_id = %s ", (first_name, goal_id))
+    else:
+        cursor.execute("UPDATE goal SET given_name = %s, family_name = %s WHERE goal_id = %s ", (first_name, second_name, goal_id))
+    db.commit()
+    cursor.close()
+    
+    return goals(match_id)
+
+
 @app.route('/search_team/<string:tournament_id>', methods=['POST'])
 def search_team(tournament_id):
     team_name = request.form.get('team_name')
