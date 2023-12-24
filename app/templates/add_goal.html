@@ -7,6 +7,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Goal</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            var form = document.getElementById('goalForm');
+            form.addEventListener('submit', function (event) {             
+                var firstNameInput = document.getElementById('first_name');
+                if (firstNameInput.value.length <= 1 || firstNameInput.value.length > 15) {
+                    alert('First name must be longer than 1 and shorter than 15 chars.');
+                    event.preventDefault(); 
+                    return;
+                }
+                var secondNameInput = document.getElementById('second_name');
+                if (secondNameInput.value.length <= 1 || secondNameInput.value.length > 15) {
+                    alert('Second name must be longer than 1 and shorter than 15 chars.');
+                    event.preventDefault(); 
+                    return;
+                }
+                var minuteInput = document.getElementById('minute');
+                var minuteValue = parseInt(minuteInput.value, 10);
+                if (isNaN(minuteValue) || minuteValue < 1 || minuteValue > 200) {
+                    alert('Minute must be a valid integer between 1 and 200.');
+                    event.preventDefault(); 
+                    return;
+                }        
+            });
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -21,7 +48,7 @@
         
     </header>
     <h1 style="text-align: center;">Add Goal</h1>
-    <form action="{{ url_for('add_goal', match_id=match_id) }}" method="post">
+    <form id="goalForm" action="{{ url_for('add_goal', match_id=match_id) }}" method="post">
         <div>
         <label for="team_name">Select Team Side:</label>
         <select required id="team_name" name="team_name">

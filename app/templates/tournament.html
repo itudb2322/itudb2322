@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tournament Details</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var form = document.getElementById('searchForm');
+            form.addEventListener('submit', function (event) {     
+                var input = document.getElementById('team_name');
+                if (input.value.length > 15) {
+                    alert('Team name must be shorter than 15 chars.');
+                    event.preventDefault(); 
+                    return;
+                }              
+            });
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -17,7 +30,7 @@
         </nav>
         <h1>World Cup Data Hub</h1>
         <div>
-            <form action="{{ url_for('search_team', tournament_id = tournament_id) }}" method="post">
+            <form id="searchForm" action="{{ url_for('search_team', tournament_id = tournament_id) }}" method="post">
             <input type="search" placeholder="Search for teams" id="team_name" name="team_name" style = "padding: 8px;
             margin-bottom: 16px;
             box-sizing: border-box;">
