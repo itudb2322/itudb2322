@@ -42,6 +42,39 @@ def all_tournaments():
         return 'Tournaments not found!'
     return render_template('tournaments.html', tournaments=tournaments)
 
+@app.route('/groups')
+def all_groups():
+    cursor = db.cursor()
+    cursor.execute('SELECT * FROM groups_')
+    groups = cursor.fetchall()
+    cursor.close()
+#    db.close()
+    if groups is None:
+        return 'Groups not found!'
+    return render_template('groups.html', groups=groups)
+
+@app.route('/group_standings')
+def all_groupst():
+    cursor = db.cursor()
+    cursor.execute('SELECT * FROM group_standings')
+    groupst = cursor.fetchall()
+    cursor.close()
+#    db.close()
+    if groupst is None:
+        return 'Group standings not found!'
+    return render_template('group_standings.html', groupst=groupst)
+
+@app.route('/teams')
+def all_teams():
+    cursor = db.cursor()
+    cursor.execute('SELECT * FROM teams')
+    teams = cursor.fetchall()
+    cursor.close()
+#    db.close()
+    if teams is None:
+        return 'Teams not found!'
+    return render_template('teams.html', teams=teams)
+
 @app.route('/tournament/<string:tournament_id>')
 def tournament_detail(tournament_id):
     cursor = db.cursor()

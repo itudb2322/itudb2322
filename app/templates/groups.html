@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Tournaments</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="{{ url_for('all_tournaments') }}">Tournaments</a></li>
+                <li><a href="{{ url_for('all_groups') }}">Groups</a></li>
+                <li><a href="{{ url_for('all_groupst') }}">Group Standings</a></li>
+                <li><a href="{{ url_for('all_teams') }}">Teams</a></li>
+            </ul>
+        </nav>
+        <h1>World Cup Data Hub</h1>
+    </header>
+    <h1 style="text-align: center;">Groups</h1>
+    <table border="1">
+        <tr>
+            <th>Tournament</th>
+            <th>Stage number</th>
+            <th>Stage name</th>
+            <th>Group name</th>
+            <th>Count teams</th>
+            
+        </tr>
+        {% for group in groups %}
+        <tr>
+            <td>{{ group[2] }}</td>
+            <td>{{ group[3] }}</td>
+            <td>{{ group[4] }}</td>
+            <td>{{ group[5] }}</td>
+            <td>{{ group[6] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
