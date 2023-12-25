@@ -1,31 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FIFA World Cup Awards</title>
-    <!-- Add your CSS links here (Bootstrap, custom styles, etc.) -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add your custom styles here */
+        .award-header {
+            cursor: pointer;
+        }
+        .award-description {
+            font-style: italic;
+        }
+        .winner-details {
+            padding-left: 20px;
+            font-size: 0.9rem;
+        }
+        .shared {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>FIFA World Cup Awards</h1>
+    <div class="container mt-5">
+        <h1 class="mb-4">FIFA World Cup Awards</h1>
 
-    <!-- Displaying Awards -->
-    <div id="awards">
-        {% for award in awards %}
-            <div class="award">
-                <h2>{{ award.award_name }} (Introduced in {{ award.year_introduced }})</h2>
-                <p>{{ award.award_description }}</p>
+        <div id="accordion">
+            {% for award in awards %}
+            <div class="card">
+                <div class="card-header award-header" id="heading{{ award.key_id }}" data-toggle="collapse" data-target="#collapse{{ award.key_id }}" aria-expanded="true" aria-controls="collapse{{ award.key_id }}">
+                    <h5 class="mb-0">
+                        {{ award.award_name }} - <small class="award-description">Introduced in {{ award.year_introduced }} as {{ award.award_description }}</small>
+                    </h5>
+                </div>
 
-                <!-- Displaying Winners of this Award -->
-                <div class="winners">
-                    {% for winner in winners %}
-                        {% if winner.award_id == award.award_id %}
-                            <div class="winner">
-                                <p>{{ winner.given_name }} {{ winner.family_name }} - {{ winner.team_name }}</p>
+                <div id="collapse{{ award.key_id }}" class="collapse" aria-labelledby="heading{{ award.key_id }}" data-parent="#accordion">
+                    <div class="card-body">
+                        {% for winner in winners %}
+                            {% if winner.award_id == award.award_id %}
+                            <div class="winner-details">
+                                {{ winner.given_name }} {{ winner.family_name }} - {{ winner.tournament_name }} - {{ winner.team_name }}{% if winner.shared %} <span class="shared">(Shared)</span>{% endif %}
                             </div>
-                        {% endif %}
-                    {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
+
+    <!-- Bootstrap and jQuery scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
