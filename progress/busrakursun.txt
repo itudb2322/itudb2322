@@ -1,1 +1,2 @@
 I wrote a python code to conveniently place the contents of csv files into tables. We use the requirements.txt file to run this code. Afterwards, I created 3 tables in my mysql database by specifying the primary key and foreign keys. I used the code I wrote to fill the tables and the code worked and my tables were created.
+I added python flask and html codes.

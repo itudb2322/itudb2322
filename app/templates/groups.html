@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sports Data Hub</title>
+    <title>All Tournaments</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
@@ -19,23 +19,25 @@
         </nav>
         <h1>World Cup Data Hub</h1>
     </header>
-    <main>
-       <!-- Inside your main tag in index.html -->
-<section id="tournaments">
-    <h2><a href="{{ url_for('all_tournaments') }}">Recent Tournaments</a></h2>
-    <ul>
-        {% for tournament in tournaments %}
-        <li><a href="{{ url_for('tournament_detail', tournament_id=tournament['tournament_id']) }}">{{ tournament['tournament_name'] }}</a></li>
+    <h1 style="text-align: center;">Groups</h1>
+    <table border="1">
+        <tr>
+            <th>Tournament</th>
+            <th>Stage number</th>
+            <th>Stage name</th>
+            <th>Group name</th>
+            <th>Count teams</th>
+            
+        </tr>
+        {% for group in groups %}
+        <tr>
+            <td>{{ group[2] }}</td>
+            <td>{{ group[3] }}</td>
+            <td>{{ group[4] }}</td>
+            <td>{{ group[5] }}</td>
+            <td>{{ group[6] }}</td>
+        </tr>
         {% endfor %}
-    </ul>
-</section>
-<div class="featured-awards">
-    <a href="/awards" class="awards-button">View Awards</a>
-</div>
-    </main>
-    <footer>
-        <p>&copy; 2023 Sports Data Hub</p>
-    </footer>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    </table>
 </body>
 </html>
