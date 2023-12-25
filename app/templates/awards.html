@@ -41,7 +41,13 @@
                         {% for winner in winners %}
                             {% if winner.award_id == award.award_id %}
                             <div class="winner-details">
-                                {{ winner.given_name }} {{ winner.family_name }} - {{ winner.tournament_name }} - {{ winner.team_name }}{% if winner.shared %} <span class="shared">(Shared)</span>{% endif %}
+                                {% if winner.given_name != "not applicable" %}
+  {{ winner.given_name }} {{ winner.family_name }} - {{ winner.tournament_name }} - {{ winner.team_name }}
+{% else %}
+  {{ winner.family_name }} - {{ winner.tournament_name }} - {{ winner.team_name }}
+{% endif %}
+{% if winner.shared %} <span class="shared">(Shared)</span>{% endif %}
+
                             </div>
                             {% endif %}
                         {% endfor %}
